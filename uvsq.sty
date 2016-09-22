@@ -1,0 +1,174 @@
+% Copyright 2014 by Sylvain Chevallier
+%
+% This file may be distributed and/or modified
+%
+% 1. under the LaTeX Project Public License and/or
+% 2. under the GNU Public License.
+%
+% See the file doc/licenses/LICENSE for more details.
+
+
+%%%
+%%% Inherit definitions from existing themes (DO NOT MODIFY THESE)
+%%%
+
+% Layout scheme for outer elements: split header and footer
+\useoutertheme{split}
+
+% Color scheme for outer elements: use background colors
+\usecolortheme{whale}
+
+% Layout scheme for inner elements: rounded elements
+\useinnertheme{rounded} 
+  
+% Color scheme for inner elements: use foreground colors
+\usecolortheme{orchid}
+
+%%%
+%%% Tweak definitions of inner theme to match personal preferences (MODIFY THESE)
+%%%
+
+% Itemize items: default (triangle), circle, square, ball
+\setbeamertemplate{itemize items}[circle]
+
+% Enumerate items: default, circle, square, ball
+\setbeamertemplate{enumerate items}[ball]
+
+% Outline: default, sections numbered, subsections numbered, circle, square, ball, ball unnumbered
+\setbeamertemplate{sections/subsections in toc}[default]
+
+% General blocks: 
+\setbeamertemplate{blocks}[rounded]
+
+% Title page:
+\setbeamertemplate{title page}[default][colsep=-4bp,rounded=true]
+
+% Part page:
+\setbeamertemplate{part page}[default][colsep=-4bp,rounded=true]
+
+% Navigation symbols:
+\setbeamertemplate{navigation symbols}{}
+
+
+%%%
+%%% Tweak definitions of outer theme to match UVSQ style
+%%%
+
+% Background
+\setbeamertemplate{background}[default]
+\setbeamercolor{background}{bg=white}
+
+% Colors
+\usecolortheme[RGB={119,173,28}]{structure}
+\definecolor{beamer@structurequadristart@color}{RGB}{128,186,39}
+\setbeamercolor{structurequadristart}{fg=beamer@structurequadristart@color}
+\definecolor{beamer@structurequadriend@color}{RGB}{63,136,39}
+\setbeamercolor{structurequadriend}{fg=beamer@structurequadriend@color}
+\definecolor{beamer@blason@color}{RGB}{0,146,187}
+\setbeamercolor{blason}{fg=beamer@blason@color}
+\definecolor{beamer@gris@color}{RGB}{111,111,110}
+\setbeamercolor{gris}{fg=beamer@gris@color}
+
+\setbeamercolor*{palette primary}{use=structure,fg=white,bg=structure.fg}
+\setbeamercolor*{palette secondary}{use=blason,fg=white,bg=blason.fg}
+\setbeamercolor*{palette tertiary}{fg=white,bg=white}
+\setbeamercolor*{palette quaternary}{use=gris,fg=white,bg=blason.fg!30!white}
+\setbeamercolor*{palette penternary}{use=structurequadristart,fg=white,bg=structurequadristart.fg}
+\setbeamercolor*{palette sexternary}{use=structurequadriend,fg=white,bg=structurequadriend.fg}
+
+\setbeamercolor{section in head/foot}{parent=palette secondary}
+\setbeamercolor{subsection in head/foot}{parent=palette quaternary}
+\setbeamercolor{author in head/foot}{parent=section in head/foot}
+\setbeamercolor{title in head/foot}{parent=palette primary}
+
+\setbeamercolor{frametitle}{parent=palette penternary}
+\setbeamercolor{frametitle left}{parent=palette penternary}
+\setbeamercolor{frametitle right}{parent=palette sexternary}
+
+\pgfdeclarehorizontalshading[frametitle.bg,frametitle right.bg]{beamer@frametitleshade}{\paperheight}{%
+  color(0pt)=(frametitle.bg);
+  color(\paperwidth)=(frametitle right.bg)}
+
+\AtBeginDocument{
+  \pgfdeclareverticalshading{beamer@topshade}{\paperwidth}{%
+    color(0pt)=(bg);
+    color(4pt)=(black!50!bg)}
+}
+
+% Footline: AUTHOR | TITLE | DATE FRAMENUMBER
+\defbeamertemplate*{footline}{lisv theme}{%
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.25\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortauthor
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.25\paperwidth,ht=2.25ex,dp=1ex,center]{author in head/foot}%
+    \usebeamerfont{author in head/foot}\insertshortdate
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.416667\paperwidth,ht=2.25ex,dp=1ex,center]{title in head/foot}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+   \begin{beamercolorbox}[wd=0.083333\paperwidth,ht=2.25ex,dp=1ex,right]{title in head/foot}%
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex} 
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+
+% Headline: SECTION | LOGO
+\defbeamertemplate*{headline}{lisv theme}{%
+  \leavevmode%
+  \@tempdimb=2.4375ex%
+    \multiply\@tempdimb by\beamer@sectionmax%
+  \pgfdeclareimage[height=1\@tempdimb]{logo}{uvsqlogo-upsay-long}%
+  \logo{\pgfuseimage{logo}}%
+  \ifdim\@tempdimb>0pt%
+    \advance\@tempdimb by 1.125ex%
+    \begin{beamercolorbox}[wd=.5\paperwidth,ht=\@tempdimb]{section in head/foot}%
+      \vbox to\@tempdimb{\vfil\insertsectionnavigation{.5\paperwidth}\vfil}%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=0.05\paperwidth,ht=\@tempdimb,left]{subsection in head/foot}% en blanc
+      \vbox to\@tempdimb{\vfil~\vfil}%
+    \end{beamercolorbox}%
+    \begin{beamercolorbox}[wd=0.9\paperwidth,ht=\@tempdimb,left]{subsection in head/foot}% en blanc
+      \vbox to\@tempdimb{\vfil\insertlogo\vfil}%
+    \end{beamercolorbox}%
+  \fi%
+}
+
+% Frametitle: FRAMETITLE on shading color
+\defbeamertemplate*{frametitle}{lisv theme}{%
+  \nointerlineskip%
+  \hbox{\leavevmode
+    \advance\beamer@leftmargin by -12bp%
+    \advance\beamer@rightmargin by -12bp%
+    \beamer@tempdim=\textwidth%
+    \advance\beamer@tempdim by \beamer@leftmargin%
+    \advance\beamer@tempdim by \beamer@rightmargin%
+    \hskip-\Gm@lmargin\hbox{%
+      \setbox\beamer@tempbox=\hbox{\begin{minipage}[b]{\paperwidth}%
+          \vbox{}\vskip-.75ex%
+          \leftskip0.3cm%
+          \rightskip0.3cm plus1fil\leavevmode
+          \insertframetitle%
+          \ifx\insertframesubtitle\@empty%
+            \strut\par%
+          \else
+            \par{\usebeamerfont*{framesubtitle}{\usebeamercolor[fg]{framesubtitle}\insertframesubtitle}\strut\par}%
+          \fi%
+          \nointerlineskip
+          \vbox{}%
+          \end{minipage}}%
+      \beamer@tempdim=\ht\beamer@tempbox%
+      \advance\beamer@tempdim by 2pt%
+      \begin{pgfpicture}{0.1mm}{0pt}{1.01\paperwidth}{\beamer@tempdim}
+        \usebeamercolor{frametitle right}
+        \pgfpathrectangle{\pgfpointorigin}{\pgfpoint{\paperwidth}{\beamer@tempdim}}
+        \pgfusepath{clip}
+        \pgftext[left,base]{\pgfuseshading{beamer@frametitleshade}}
+      \end{pgfpicture}
+      \hskip-\paperwidth%
+      \box\beamer@tempbox%
+    }%
+    \hskip-\Gm@rmargin%
+  }%
+}

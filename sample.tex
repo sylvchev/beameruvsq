@@ -1,0 +1,253 @@
+\documentclass[10pt,hidelinks]{beamer}
+
+\usepackage{uvsq}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage{xcolor}
+
+% To include code
+\usepackage{listings} 
+\lstset{
+  language=python,
+  basicstyle=\scriptsize, %\footnotesize
+  keywordstyle=\color{black}\bfseries,
+  commentstyle=\color{gray},
+  stringstyle=\ttfamily,
+  numbers=left, 
+  numberstyle=\tiny,
+  frame=single,
+  showspaces=false,
+  showstringspaces=false
+}
+
+% To change the hyperref package options
+\hypersetup{
+    pdftitle={Example for UVSQ beamer theme},    % title
+    pdfauthor={Sylvain Chevallier},     % author
+    pdfnewwindow=true,      % links in new window
+    pdfkeywords={beamer, UVSQ, latex}, % list of keywords
+}
+
+% Macro to avoid numbering the appendix frames
+\newcommand{\backupbegin}{
+   \newcounter{framenumberappendix}
+   \setcounter{framenumberappendix}{\value{framenumber}}
+}
+\newcommand{\backupend}{
+   \addtocounter{framenumberappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumberappendix}} 
+}
+
+% Macro to have only link to external website in color
+\definecolor{bleublason}{RGB}{0,146,187}
+\newcommand{\colorhref}[2]{\href{#1}{\color{bleublason}{#2}}}
+
+\title[Short Title]{This is a title}
+\subtitle{and its subtitle}
+
+\author[H. Cover]{
+  Harry Cover\\
+  \texttt{hc@uvsq.fr}
+}
+
+\institute[UVSQ]{
+  Universit\'e de Versailles Saint-Quentin
+  }
+
+\date[September 2016]{September 22, 2016}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+% To recall the outline before each new section, uncomment below
+% \AtBeginSection[]
+% {
+%   \begin{frame}<beamer>
+%     \frametitle{Outline}
+%     \tableofcontents
+%   \end{frame}
+% }
+
+\begin{frame}
+  \frametitle{Outline}
+  \tableofcontents
+\end{frame}
+\section{This is the first section}
+
+\subsection{A first subsection}
+
+\begin{frame}
+  \frametitle{This is the frametitle}
+  Some basic text
+
+  \vfill
+
+  \begin{itemize}
+  \item This is a text item
+  \item And another one
+  \end{itemize}
+
+  \vfill
+
+  \begin{enumerate}
+  \item A first item
+  \item A second one
+  \end{enumerate}
+
+  \vfill
+
+  \begin{description}
+  \item[A label] A description with label
+  \item[Another one] A second description
+  \end{description}
+\end{frame}
+
+\subsection{A second subsection}
+
+\begin{frame}
+  \frametitle{Using blocks}
+
+  \begin{block}{This is a block title}
+    \begin{itemize}
+    \item A first item
+    \item A second one
+    \end{itemize}
+  \end{block}
+  \vfill
+  \begin{alertblock}{Another block title}
+    An alert block
+  \end{alertblock}
+\end{frame}
+
+\section{Some useful environment}
+
+\subsection{Using columns for structure}
+
+\begin{frame}
+  \frametitle{A frame with columns}
+
+  Some text before the columns environment
+
+  \vfill
+
+  \begin{columns}
+    \begin{column}{0.5\linewidth}
+      \begin{itemize}
+      \item Something
+      \item Something else
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.5\linewidth}
+      Some text or image
+
+      \begin{center}
+        \pgfimage[interpolate=true,width=0.95\linewidth]{uvsqlogo-upsay-long}
+      \end{center}
+    \end{column}
+  \end{columns}
+
+  \vfill
+
+    Some text after
+\end{frame}
+
+\subsection{Putting code in presentation}
+
+\begin{frame}[fragile]
+  \frametitle{Including code}
+
+  \begin{itemize}
+  \item   The listings package allows to include code in \LaTeX{} docs
+  \item More information on \colorhref{https://www.ctan.org/pkg/listings}{https://www.ctan.org/pkg/listings}
+  \end{itemize}
+
+  \vfill
+
+\begin{lstlisting}
+def fib(n):
+    """Print Fibonacci sequence up to n."""
+    a, b = 0, 1
+    while b < n:
+        print (b, end=' ')
+        a, b = b, a+b
+\end{lstlisting}
+
+\end{frame}
+
+\subsection{Adding reference to appendix}
+
+\begin{frame}
+  \frametitle{Button to reference appendix}
+
+  On the webpage about the  \colorhref{http://www.uvsq.fr/le-logo-de-l-uvsq-233680.kjsp?RH=ACCUEIL-FR}{UVSQ logo}
+  \begin{itemize}
+  \item Color choice are explained
+  \item The font of the logo are indicated
+  \item The choice of the emblem 
+  \end{itemize}
+  \vfill
+
+  \pgfimage[interpolate=true,width=\linewidth]{uvsqlogo-upsay-long}
+
+  \begin{flushright}
+    \hyperlink{compinf}{\beamergotobutton{More information on graphic charter}}
+    \hypertarget{compinfhome}{}
+  \end{flushright}
+
+\end{frame}
+
+\section{And there is a last one}
+
+\begin{frame}
+  \frametitle{A slide with references}
+  Link to the git repository:\\
+  \colorhref{https://github.com/sylvchev/beameruvsq}{https://github.com/sylvchev/beameruvsq}
+  \vfill
+  You could also include bibliography in a slide like this:
+  \begin{thebibliography}{GPL,knuth}
+  \bibitem{GPL}
+    Free Software Foundation
+    \newblock {\em GNU General Public License} 
+    \newblock \colorhref{http://fsf.org}{fsf.org}, 2007.
+  \bibitem{knuth}
+    Knuth, Donald E.
+    \newblock {\em Computer Programming as an Art}
+    \newblock {CACM, 1974}
+  \end{thebibliography}
+\end{frame}
+
+
+\backupbegin %to avoid numbering the appendix frames
+\begin{frame}[plain]
+  \begin{center}
+    \vfill
+    {\Large Appendix}
+    \vfill
+  \end{center}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Some complementary information}
+  
+  All the information regarding the UVSQ graphic charter are \colorhref{http://www.uvsq.fr/jsp/saisie/liste_fichiergw.jsp?OBJET=DOCUMENT&CODE=1429111529765&LANGUE=0}{available here}
+
+  \begin{itemize}
+  \item Thorough explanations about the logo
+  \item All colors of the theme
+  \item RGB, CMJN and Pantone codes
+  \end{itemize}
+
+  \vfill
+
+  \begin{flushright}
+    \hyperlink{compinfhome}{\beamergotobutton{back}}
+    \hypertarget{compinf}{}
+  \end{flushright}
+
+\end{frame}
+\backupend
+
+\end{document}
